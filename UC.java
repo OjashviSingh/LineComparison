@@ -1,23 +1,53 @@
-import java.util.Scanner;
+class Line {
+    private Point start;
+    private Point end;
 
-public class UC {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+    public Line(Point start, Point end) {
+        this.start = start;
+        this.end = end;
+    }
 
-        System.out.print("Enter x1: ");
-        double x1 = sc.nextDouble();
+    public Point getStart() {
+        return start;
+    }
 
-        System.out.print("Enter y1: ");
-        double y1 = sc.nextDouble();
+    public Point getEnd() {
+        return end;
+    }
 
-        System.out.print("Enter x2: ");
-        double x2 = sc.nextDouble();
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Line) {
+            Line other = (Line) obj;
+            return this.start.equals(other.start) && this.end.equals(other.end);
+        }
+        return false;
+    }
+}
 
-        System.out.print("Enter y2: ");
-        double y2 = sc.nextDouble();
+class Point {
+    private int x;
+    private int y;
 
-        double length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+    public Point(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
 
-        System.out.println("Length of line: " + length);
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Point) {
+            Point other = (Point) obj;
+            return this.x == other.x && this.y == other.y;
+        }
+        return false;
     }
 }
