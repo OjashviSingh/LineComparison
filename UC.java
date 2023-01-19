@@ -1,4 +1,4 @@
-class Line {
+class Line implements Comparable<Line> {
     private Point start;
     private Point end;
 
@@ -14,18 +14,16 @@ class Line {
     public Point getEnd() {
         return end;
     }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof Line) {
-            Line other = (Line) obj;
-            return this.start.equals(other.start) && this.end.equals(other.end);
+    public int compareTo(Line other) {
+        int startComparison = this.start.compareTo(other.start);
+        if (startComparison != 0) {
+            return startComparison;
         }
-        return false;
+        return this.end.compareTo(other.end);
     }
 }
 
-class Point {
+class Point implements Comparable<Point> {
     private int x;
     private int y;
 
@@ -41,13 +39,11 @@ class Point {
     public int getY() {
         return y;
     }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof Point) {
-            Point other = (Point) obj;
-            return this.x == other.x && this.y == other.y;
+    public int compareTo(Point other) {
+        int xComparison = Integer.compare(this.x, other.x);
+        if (xComparison != 0) {
+            return xComparison;
         }
-        return false;
+        return Integer.compare(this.y, other.y);
     }
 }
