@@ -1,4 +1,34 @@
-class Line implements Comparable<Line> {
+class Point {
+    private double x;
+    private double y;
+
+    public Point(double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof Point)) {
+            return false;
+        }
+        Point point = (Point) obj;
+        return Double.compare(x, point.x) == 0 && Double.compare(y, point.y) == 0;
+    }
+}
+
+class Line {
     private Point start;
     private Point end;
 
@@ -14,36 +44,26 @@ class Line implements Comparable<Line> {
     public Point getEnd() {
         return end;
     }
+
+    public double length() {
+        double xDiff = end.getX() - start.getX();
+        double yDiff = end.getY() - start.getY();
+        return Math.sqrt(xDiff * xDiff + yDiff * yDiff);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof Line)) {
+            return false;
+        }
+        Line line = (Line) obj;
+        return start.equals(line.start) && end.equals(line.end);
+    }
+
     public int compareTo(Line other) {
-        int startComparison = this.start.compareTo(other.start);
-        if (startComparison != 0) {
-            return startComparison;
-        }
-        return this.end.compareTo(other.end);
-    }
-}
-
-class Point implements Comparable<Point> {
-    private int x;
-    private int y;
-
-    public Point(int x, int y) {
-        this.x = x;
-        this.y = y;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-    public int compareTo(Point other) {
-        int xComparison = Integer.compare(this.x, other.x);
-        if (xComparison != 0) {
-            return xComparison;
-        }
-        return Integer.compare(this.y, other.y);
+        return Double.compare(this.length(), other.length());
     }
 }
